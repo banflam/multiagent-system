@@ -4,6 +4,14 @@ from markdownify import markdownify
 from requests.exceptions import RequestException
 from smolagents import tool
 from huggingface_hub import login
+from smolagents import (
+    CodeAgent,
+    ToolCallingAgent,
+    InferenceClientModel,
+    WebSearchTool,
+    LiteLLMModel,
+)
+
 
 login()
 
@@ -39,3 +47,14 @@ def visit_webpage(url: str) -> str:
         return f"An unexpected error occurred: {str(e)}"
     
 print(visit_webpage("https://gwern.net/scaling-hypothesis/"))
+
+model = InferenceClientModel(model_id=model_id)
+
+web_agent = ToolCallingAgent(
+    tools = [WebSearchTool(), visit_webpage],
+    model = model,
+    max_steps = 10,
+    name="web_search_agent",
+    description="Runs web searches for you.",
+)
+
