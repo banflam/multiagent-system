@@ -46,7 +46,7 @@ def visit_webpage(url: str) -> str:
     except Exception as e:
         return f"An unexpected error occurred: {str(e)}"
     
-print(visit_webpage("https://gwern.net/scaling-hypothesis/"))
+print(visit_webpage("https://archive.is/pzKXN")[:500])
 
 model = InferenceClientModel(model_id=model_id)
 
