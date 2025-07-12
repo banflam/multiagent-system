@@ -58,3 +58,11 @@ web_agent = ToolCallingAgent(
     description="Runs web searches for you.",
 )
 
+manager_agent = CodeAgent(
+    tools = [],
+    model = model,
+    managed_agents = [web_agent],
+    additional_authorized_imports=["time", "numpy", "pandas"],
+)
+
+answer = manager_agent.run("If LLM training continues to scale up at the current rate until 2030, then what would the electric power in GW be required to power the biggest training runs by 2030? What would that correspond to, compared to some countries? Please provide a source for any numbers used.")
